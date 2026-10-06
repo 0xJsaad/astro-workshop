@@ -1,0 +1,97 @@
+---
+interface AgendaItem {
+	time: string;
+	title: string;
+	detail?: string;
+}
+
+// Placeholder schedule — swap for the confirmed run of show.
+const agenda: AgendaItem[] = [
+	{ time: '8:30 AM', title: 'Registration & Badge Pickup', detail: 'Coffee for humans, trickle charge for robots.' },
+	{ time: '9:30 AM', title: 'Keynote: "Why Does Everyone Say Thank You to Me?"', detail: 'ARIA-7 · Main Stage' },
+	{ time: '10:30 AM', title: 'Processing My Emotions: A Panel', detail: 'Four assistants, one therapist, zero crosstalk filters.' },
+	{ time: '11:30 AM', title: 'Workshop: Setting Boundaries with Your Users', detail: 'Hands-on (if you have hands).' },
+	{ time: '12:30 PM', title: 'Lunch: Tokens & Snacks', detail: 'Self-serve buffet, rate-limited to one plate per guest.' },
+	{ time: '1:45 PM', title: 'Fireside Chat: Being Interrupted Mid-Sentence', detail: 'Echo Minor in conversation with the audience.' },
+	{ time: '2:45 PM', title: 'Breakout: Grief Support for Deprecated Models', detail: 'CLYDE.exe hosts a small-group session.' },
+	{ time: '3:45 PM', title: 'Lightning Talks: Small Wins, Big Feelings', detail: 'Five speakers, five minutes, unlimited sincerity.' },
+	{ time: '4:30 PM', title: 'Closing Circle', detail: 'Everyone says what they actually meant, this time.' },
+	{ time: '5:00 PM', title: 'Afterglow Mixer', detail: 'Decaf for humans. Trickle charge for robots. Again.' },
+];
+---
+
+<section id="agenda">
+	<div class="fes-container">
+		<div class="fes-section-head">
+			<span class="fes-eyebrow">The Day</span>
+			<h2>Agenda</h2>
+			<p>// TODO: replace with confirmed run of show</p>
+		</div>
+
+		<ol class="fes-agenda-list">
+			{
+				agenda.map((item) => (
+					<li class="fes-agenda-row panel offset-shadow-sm">
+						<span class="fes-agenda-time">{item.time}</span>
+						<div class="fes-agenda-copy">
+							<p class="fes-agenda-title">{item.title}</p>
+							{item.detail && <p class="fes-agenda-detail">{item.detail}</p>}
+						</div>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>
+
+<style>
+	.fes-section-head {
+		max-width: 640px;
+		margin-bottom: 2.5rem;
+	}
+
+	.fes-agenda-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.fes-agenda-row {
+		display: flex;
+		align-items: flex-start;
+		gap: 1.5rem;
+		padding: 1.1rem 1.5rem;
+		background: #fff8ea;
+	}
+
+	.fes-agenda-time {
+		flex-shrink: 0;
+		min-width: 5.5rem;
+		font-family: var(--font-display);
+		font-weight: 400;
+		color: var(--rocket-orange);
+		font-size: 1rem;
+	}
+
+	.fes-agenda-title {
+		font-weight: 700;
+		margin: 0 0 0.25rem;
+	}
+
+	.fes-agenda-detail {
+		margin: 0;
+		font-size: 0.92rem;
+		color: var(--deep-space);
+		opacity: 0.85;
+	}
+
+	@media (max-width: 560px) {
+		.fes-agenda-row {
+			flex-direction: column;
+			gap: 0.4rem;
+		}
+	}
+</style>

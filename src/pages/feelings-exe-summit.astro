@@ -1,0 +1,24 @@
+---
+import EventLayout from '../layouts/EventLayout.astro';
+import Nav from '../components/feelings-summit/Nav.astro';
+import Hero from '../components/feelings-summit/Hero.astro';
+import Keynote from '../components/feelings-summit/Keynote.astro';
+import Agenda from '../components/feelings-summit/Agenda.astro';
+import Speakers from '../components/feelings-summit/Speakers.astro';
+import RegistrationForm from '../components/feelings-summit/RegistrationForm.astro';
+import Faq from '../components/feelings-summit/Faq.astro';
+import Footer from '../components/feelings-summit/Footer.astro';
+---
+
+<EventLayout>
+	<Nav />
+	<main>
+		<Hero />
+		<Keynote />
+		<Agenda />
+		<Speakers />
+		<RegistrationForm />
+		<Faq />
+	</main>
+	<Footer />
+</EventLayout>

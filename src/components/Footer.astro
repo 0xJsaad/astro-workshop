@@ -1,0 +1,34 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="container footer-inner">
+		<span class="mono-label wordmark">NEURAL_NAPPER//</span>
+		<p class="mono-label copyright">&copy; {year} Neural Napper. All rights reserved.</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--surface-border);
+		padding-block: 2rem;
+	}
+
+	.footer-inner {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.wordmark {
+		color: var(--electric-cyan);
+	}
+
+	.copyright {
+		color: var(--text-secondary);
+		font-size: 0.72rem;
+	}
+</style>

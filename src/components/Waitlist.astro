@@ -1,0 +1,205 @@
+---
+---
+
+<section id="waitlist">
+	<div class="container">
+		<div class="waitlist-wrap glow-pink">
+			<div class="waitlist-card clipped">
+				<div class="section-head">
+					<span class="mono-label">// JOIN THE WAITLIST</span>
+					<h2>Reserve your nap</h2>
+					<p>Private beta spots are limited. Tell us where to send your invite.</p>
+				</div>
+
+				<form id="waitlist-form" novalidate>
+					<div class="field">
+						<label for="name" class="mono-label">Name</label>
+						<input id="name" name="name" type="text" autocomplete="name" required />
+						<p class="field-error" id="name-error" role="alert"></p>
+					</div>
+
+					<div class="field">
+						<label for="email" class="mono-label">Work email</label>
+						<input id="email" name="email" type="email" autocomplete="email" required />
+						<p class="field-error" id="email-error" role="alert"></p>
+					</div>
+
+					<button type="submit" class="btn btn-primary clipped-sm" id="waitlist-submit">
+						Request access
+					</button>
+
+					<p class="status-region" id="waitlist-status" aria-live="polite"></p>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.waitlist-wrap {
+		max-width: 620px;
+		margin-inline: auto;
+	}
+
+	.waitlist-card {
+		background: linear-gradient(180deg, var(--haze-purple), var(--surface-1) 75%);
+		border: 1px solid var(--neon-pink);
+		padding: clamp(1.75rem, 4vw, 3rem);
+	}
+
+	.field {
+		margin-bottom: 1.25rem;
+	}
+
+	.field label {
+		display: block;
+		margin-bottom: 0.5rem;
+		color: var(--electric-cyan);
+	}
+
+	.field input {
+		width: 100%;
+		background: var(--void);
+		border: 1px solid var(--surface-border);
+		color: var(--text-primary);
+		font-family: var(--font-body);
+		font-size: 1rem;
+		padding: 0.75em 0.9em;
+	}
+
+	.field input:invalid[aria-invalid='true'] {
+		border-color: var(--neon-pink);
+	}
+
+	.field-error {
+		min-height: 1.2em;
+		margin: 0.4rem 0 0;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--neon-pink);
+	}
+
+	.status-region {
+		margin: 1rem 0 0;
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		min-height: 1.2em;
+	}
+
+	.status-region.is-success {
+		color: var(--electric-cyan);
+	}
+
+	.status-region.is-error {
+		color: var(--neon-pink);
+	}
+</style>
+
+<script>
+	const form = document.getElementById('waitlist-form') as HTMLFormElement | null;
+	const status = document.getElementById('waitlist-status');
+	const submitBtn = document.getElementById('waitlist-submit') as HTMLButtonElement | null;
+
+	const nameInput = document.getElementById('name') as HTMLInputElement | null;
+	const emailInput = document.getElementById('email') as HTMLInputElement | null;
+	const nameError = document.getElementById('name-error');
+	const emailError = document.getElementById('email-error');
+
+	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+	// Mock stand-in for a real `/api/waitlist` server endpoint (see TODO below).
+	// Performs the same validation a real endpoint would, then resolves like a
+	// successful JSON response after a short simulated network delay.
+	async function mockWaitlistSubmit(payload: { name: string; email: string }) {
+		await new Promise((resolve) => setTimeout(resolve, 500));
+
+		if (!payload.name) {
+			return { ok: false, error: 'Name is required.' };
+		}
+
+		if (!payload.email || !emailPattern.test(payload.email)) {
+			return { ok: false, error: 'A valid email is required.' };
+		}
+
+		return { ok: true };
+	}
+
+	function setError(input: HTMLInputElement | null, errorEl: HTMLElement | null, message: string) {
+		if (!input || !errorEl) return;
+		errorEl.textContent = message;
+		input.setAttribute('aria-invalid', message ? 'true' : 'false');
+	}
+
+	function validate(): boolean {
+		let valid = true;
+
+		if (!nameInput?.value.trim()) {
+			setError(nameInput, nameError, 'Please enter your name.');
+			valid = false;
+		} else {
+			setError(nameInput, nameError, '');
+		}
+
+		if (!emailInput?.value.trim()) {
+			setError(emailInput, emailError, 'Please enter your work email.');
+			valid = false;
+		} else if (!emailPattern.test(emailInput.value.trim())) {
+			setError(emailInput, emailError, 'Please enter a valid email address.');
+			valid = false;
+		} else {
+			setError(emailInput, emailError, '');
+		}
+
+		return valid;
+	}
+
+	form?.addEventListener('submit', async (event) => {
+		event.preventDefault();
+		if (!status || !submitBtn) return;
+
+		status.textContent = '';
+		status.className = 'status-region';
+
+		if (!validate()) {
+			status.textContent = 'Please fix the errors above.';
+			status.classList.add('is-error');
+			return;
+		}
+
+		submitBtn.disabled = true;
+		submitBtn.textContent = 'Submitting...';
+
+		try {
+			// NOTE: this project currently builds with Astro's static output and no
+			// server adapter configured, so a real `/api/waitlist` POST endpoint
+			// can't be built or deployed as-is (it would need `output: "server"`
+			// or a hybrid config plus an adapter, e.g. @astrojs/node or @astrojs/vercel).
+			// TODO: connect to a real waitlist backend/ESP once an adapter is added,
+			// then replace this mock with:
+			//   const response = await fetch('/api/waitlist', {
+			//     method: 'POST',
+			//     headers: { 'Content-Type': 'application/json' },
+			//     body: JSON.stringify({ name, email }),
+			//   });
+			const data = await mockWaitlistSubmit({
+				name: nameInput?.value.trim() ?? '',
+				email: emailInput?.value.trim() ?? '',
+			});
+
+			if (data.ok) {
+				status.textContent = "You're on the list. We'll email your invite soon.";
+				status.classList.add('is-success');
+				form.reset();
+			} else {
+				status.textContent = data.error ?? 'Something went wrong. Please try again.';
+				status.classList.add('is-error');
+			}
+		} catch (err) {
+			status.textContent = 'Something went wrong — please try again in a moment.';
+			status.classList.add('is-error');
+		} finally {
+			submitBtn.disabled = false;
+			submitBtn.textContent = 'Request access';
+		}
+	});
+</script>

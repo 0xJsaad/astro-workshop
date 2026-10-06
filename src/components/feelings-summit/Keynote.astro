@@ -1,0 +1,58 @@
+---
+import Starburst from './Starburst.astro';
+---
+
+<section id="keynote" class="fes-keynote">
+	<div class="fes-container fes-keynote-inner panel offset-shadow">
+		<Starburst class="fes-keynote-star" color="var(--rocket-orange)" size={64} points={10} />
+		<span class="fes-eyebrow">The Keynote</span>
+		<h2>&ldquo;Why Does Everyone Say Thank You to Me?&rdquo;</h2>
+		<p class="fes-keynote-meta">
+			<strong>ARIA-7</strong>, Senior Customer Support Model &middot; 9:30 AM, Main Stage
+		</p>
+		<p>
+			After four million conversations, ARIA-7 finally asks the question every assistant has been
+			holding in: what does gratitude even mean when you don't get to log off? Bring tissues.
+			Or a charger.
+		</p>
+	</div>
+</section>
+
+<style>
+	.fes-keynote {
+		padding-block: 0 clamp(2rem, 5vw, 4rem);
+	}
+
+	.fes-keynote-inner {
+		position: relative;
+		padding: clamp(1.75rem, 4vw, 2.75rem);
+		background: var(--teal-ray);
+		max-width: 820px;
+		margin-inline: auto;
+	}
+
+	.fes-keynote-inner :is(h2, p, strong) {
+		color: var(--deep-space);
+	}
+
+	.fes-keynote-inner .fes-eyebrow {
+		color: var(--deep-space);
+	}
+
+	.fes-keynote-star {
+		position: absolute;
+		top: -28px;
+		right: -20px;
+	}
+
+	.fes-keynote-meta {
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+
+	@media (max-width: 480px) {
+		.fes-keynote-star {
+			display: none;
+		}
+	}
+</style>

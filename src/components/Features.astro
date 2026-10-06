@@ -1,0 +1,108 @@
+---
+const features = [
+	{
+		title: 'Joins every call',
+		desc: 'Drops into Zoom, Meet, or Teams on your behalf, right on time, every time.',
+		icon: 'M4 5h16v10H4z M8 19h8 M12 15v4',
+	},
+	{
+		title: 'Nods at the right moments',
+		desc: 'Reads the room and reacts on cue, so your camera tile never gives you away.',
+		icon: 'M12 3a4 4 0 100 8 4 4 0 000-8z M5 20c0-4 3-6 7-6s7 2 7 6',
+	},
+	{
+		title: 'Writes notes while you sleep',
+		desc: 'A clean, structured summary lands in your inbox before your alarm does.',
+		icon: 'M5 4h14v16H5z M8 8h8 M8 12h8 M8 16h5',
+	},
+	{
+		title: 'Extracts action items',
+		desc: 'Owners, deadlines, and decisions pulled out automatically — no re-watching required.',
+		icon: 'M5 12l4 4 10-10',
+	},
+	{
+		title: 'Searchable archive',
+		desc: 'Every meeting, transcript, and decision indexed and searchable in seconds.',
+		icon: 'M11 4a7 7 0 100 14 7 7 0 000-14z M21 21l-4.3-4.3',
+	},
+	{
+		title: 'Works quietly',
+		desc: 'A visible, honest presence in the call — never pretends to be a person.',
+		icon: 'M12 2l2.6 5.5L21 9l-5 4 1.5 6.5L12 16l-5.5 3.5L8 13 3 9l6.4-1.5z',
+	},
+];
+---
+
+<section id="features">
+	<div class="container">
+		<div class="section-head">
+			<span class="mono-label">// WHAT IT DOES</span>
+			<h2>It attends. You rest.</h2>
+			<p>Everything your meetings need, none of the hours you'd lose sitting through them.</p>
+		</div>
+
+		<div class="feature-grid">
+			{
+				features.map((feature) => (
+					<div class="feature-card-wrap glow-cyan-hover">
+						<article class="feature-card clipped">
+							<svg
+								class="feature-icon"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+								aria-hidden="true"
+							>
+								<path d={feature.icon} stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+							<h3>{feature.title}</h3>
+							<p>{feature.desc}</p>
+						</article>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.feature-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.feature-card-wrap {
+		transition: box-shadow 160ms ease;
+	}
+
+	.feature-card-wrap:hover,
+	.feature-card-wrap:focus-within {
+		box-shadow: var(--glow-cyan);
+	}
+
+	.feature-card {
+		height: 100%;
+		background: var(--surface-1);
+		border: 1px solid var(--surface-border);
+		padding: 1.75rem;
+	}
+
+	.feature-icon {
+		width: 2rem;
+		height: 2rem;
+		color: var(--electric-cyan);
+		margin-bottom: 1rem;
+	}
+
+	.feature-card h3 {
+		font-size: 1.05rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.feature-card p {
+		font-size: 0.95rem;
+		margin: 0;
+	}
+</style>

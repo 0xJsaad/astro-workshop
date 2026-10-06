@@ -1,0 +1,31 @@
+---
+interface Props {
+	size?: number;
+	rotation?: number;
+	class?: string;
+}
+
+const { size = 110, rotation = -12, class: className } = Astro.props;
+---
+
+<svg
+	class={className}
+	width={size}
+	height={size * 1.4}
+	viewBox="0 0 70 100"
+	role="presentation"
+	aria-hidden="true"
+	style={`transform: rotate(${rotation}deg);`}
+>
+	<path
+		d="M35 2 C50 18 56 38 50 62 L20 62 C14 38 20 18 35 2 Z"
+		fill="var(--cream-paper)"
+		stroke="var(--deep-space)"
+		stroke-width="3"
+		stroke-linejoin="round"
+	/>
+	<circle cx="35" cy="34" r="8" fill="var(--teal-ray)" stroke="var(--deep-space)" stroke-width="2.5" />
+	<path d="M20 50 L4 70 L20 64 Z" fill="var(--rocket-orange)" stroke="var(--deep-space)" stroke-width="2.5" stroke-linejoin="round" />
+	<path d="M50 50 L66 70 L50 64 Z" fill="var(--rocket-orange)" stroke="var(--deep-space)" stroke-width="2.5" stroke-linejoin="round" />
+	<path d="M27 62 L35 92 L43 62 Z" fill="var(--sunshine)" stroke="var(--deep-space)" stroke-width="2.5" stroke-linejoin="round" />
+</svg>

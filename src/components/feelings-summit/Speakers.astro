@@ -1,0 +1,129 @@
+---
+import RobotAvatar from './RobotAvatar.astro';
+import Starburst from './Starburst.astro';
+import { speakers } from '../../data/speakers';
+---
+
+<section id="speakers">
+	<div class="fes-container">
+		<div class="fes-section-head">
+			<span class="fes-eyebrow">The Lineup</span>
+			<h2>Speakers</h2>
+			<p>// TODO: replace with confirmed, real speakers</p>
+		</div>
+
+		<div class="fes-speaker-search">
+			<label for="fes-speaker-search-input">Search speakers</label>
+			<input
+				type="search"
+				id="fes-speaker-search-input"
+				placeholder="Search by name, role, or talk title…"
+				autocomplete="off"
+			/>
+			<p class="fes-visually-hidden" id="fes-speaker-count" aria-live="polite"></p>
+		</div>
+
+		<p class="fes-speaker-empty" id="fes-speaker-empty" hidden>No robots match. They may be feeling shy.</p>
+
+		<div class="fes-speaker-grid" id="fes-speaker-grid">
+			{
+				speakers.map((speaker) => (
+					<article
+						class="fes-speaker-card panel offset-shadow-sm"
+						data-name={speaker.name.toLowerCase()}
+						data-role={speaker.role.toLowerCase()}
+						data-talk={speaker.talk.toLowerCase()}
+					>
+						<div class="fes-speaker-badge">
+							<Starburst color="var(--sunshine)" size={36} points={8} />
+						</div>
+						<RobotAvatar face={speaker.face} size={88} />
+						<h3>{speaker.name}</h3>
+						<p class="fes-speaker-role">{speaker.role}</p>
+						<p class="fes-speaker-talk">{speaker.talk}</p>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.fes-speaker-search {
+		max-width: 420px;
+		margin-bottom: 2rem;
+	}
+
+	.fes-speaker-empty {
+		font-weight: 700;
+		margin-bottom: 2rem;
+	}
+
+	.fes-speaker-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.fes-speaker-card {
+		position: relative;
+		padding: 1.75rem 1.5rem;
+		text-align: center;
+		background: #fff8ea;
+	}
+
+	.fes-speaker-badge {
+		position: absolute;
+		top: -14px;
+		right: -10px;
+	}
+
+	.fes-speaker-card h3 {
+		font-size: 1.1rem;
+		margin-top: 0.75rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.fes-speaker-role {
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--teal-ray);
+		margin-bottom: 0.5rem;
+	}
+
+	.fes-speaker-talk {
+		font-size: 0.92rem;
+		margin-bottom: 0;
+	}
+</style>
+
+<script>
+	// Progressive enhancement: all speaker cards render server-side and stay
+	// visible without JS. This script only adds live client-side filtering.
+	const input = document.getElementById('fes-speaker-search-input') as HTMLInputElement | null;
+	const grid = document.getElementById('fes-speaker-grid');
+	const empty = document.getElementById('fes-speaker-empty');
+	const count = document.getElementById('fes-speaker-count');
+
+	if (input && grid && empty && count) {
+		const cards = Array.from(grid.querySelectorAll<HTMLElement>('.fes-speaker-card'));
+
+		const applyFilter = () => {
+			const query = input.value.trim().toLowerCase();
+			let visible = 0;
+
+			cards.forEach((card) => {
+				const haystack = `${card.dataset.name ?? ''} ${card.dataset.role ?? ''} ${card.dataset.talk ?? ''}`;
+				const matches = query === '' || haystack.includes(query);
+				card.hidden = !matches;
+				if (matches) visible += 1;
+			});
+
+			empty.hidden = visible !== 0;
+			count.textContent = `${visible} speaker${visible === 1 ? '' : 's'} shown`;
+		};
+
+		input.addEventListener('input', applyFilter);
+		applyFilter();
+	}
+</script>

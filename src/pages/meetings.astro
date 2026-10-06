@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+type MeetingStatus = 'Attending' | 'Napping';
+
+interface Meeting {
+	title: string;
+	time: string;
+	platform: 'Zoom' | 'Google Meet' | 'Microsoft Teams';
+	status: MeetingStatus;
+}
+
+const meetings: Meeting[] = [
+	{ title: 'Q3 Roadmap Sync', time: 'Today, 10:00 AM', platform: 'Zoom', status: 'Attending' },
+	{ title: '1:1 — Design Review', time: 'Today, 1:30 PM', platform: 'Google Meet', status: 'Attending' },
+	{ title: 'All-Hands', time: 'Today, 4:00 PM', platform: 'Microsoft Teams', status: 'Napping' },
+	{ title: 'Customer Onboarding Call', time: 'Tomorrow, 9:00 AM', platform: 'Zoom', status: 'Attending' },
+	{ title: 'Sprint Retro', time: 'Tomorrow, 11:00 AM', platform: 'Google Meet', status: 'Attending' },
+	{ title: 'Budget Planning', time: 'Wed, 2:00 PM', platform: 'Microsoft Teams', status: 'Napping' },
+];
+---
+
+<Layout
+	title="Upcoming Meetings — Neural Napper"
+	description="See which meetings your AI is attending — and which ones it's napping through."
+>
+	<Nav />
+	<main>
+		<section class="meetings-hero">
+			<div class="container">
+				<span class="mono-label eyebrow">// YOUR SCHEDULE</span>
+				<h1>Meetings your AI will attend</h1>
+				<p>A live look at what's on the calendar, and whether Neural Napper is on the clock.</p>
+			</div>
+		</section>
+
+		<section class="meetings-table-section">
+			<div class="container">
+				<div class="table-wrap clipped">
+					<table>
+						<thead>
+							<tr>
+								<th scope="col">Meeting</th>
+								<th scope="col">Time</th>
+								<th scope="col">Platform</th>
+								<th scope="col">Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								meetings.map((meeting) => (
+									<tr>
+										<td>{meeting.title}</td>
+										<td>{meeting.time}</td>
+										<td>{meeting.platform}</td>
+										<td>
+											<span
+												class={`status-pill mono-label ${
+													meeting.status === 'Attending' ? 'status-attending' : 'status-napping'
+												}`}
+											>
+												{meeting.status}
+											</span>
+										</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.meetings-hero {
+		padding-block: clamp(3rem, 7vw, 5rem) 2rem;
+		background: radial-gradient(circle at 50% -10%, rgba(45, 27, 78, 0.8), var(--void) 60%);
+	}
+
+	.eyebrow {
+		color: var(--neon-pink);
+		display: block;
+		margin-bottom: 1rem;
+	}
+
+	.meetings-hero h1 {
+		font-size: clamp(2rem, 5vw, 3rem);
+	}
+
+	.table-wrap {
+		overflow-x: auto;
+		border: 1px solid var(--surface-border);
+		background: var(--surface-1);
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		min-width: 560px;
+	}
+
+	th,
+	td {
+		text-align: left;
+		padding: 1rem 1.25rem;
+		border-bottom: 1px solid var(--surface-border);
+		font-size: 0.95rem;
+	}
+
+	th {
+		font-family: var(--font-mono);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-size: 0.75rem;
+		color: var(--electric-cyan);
+	}
+
+	tbody tr:last-child td {
+		border-bottom: none;
+	}
+
+	.status-pill {
+		display: inline-block;
+		padding: 0.3em 0.75em;
+		border: 1px solid currentColor;
+	}
+
+	.status-attending {
+		color: var(--electric-cyan);
+	}
+
+	.status-napping {
+		color: var(--acid-yellow);
+	}
+</style>

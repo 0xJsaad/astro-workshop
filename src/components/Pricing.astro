@@ -1,0 +1,151 @@
+---
+// TODO: confirm pricing — all tiers below are placeholders for the launch page only.
+const tiers = [
+	{
+		name: 'Catnap',
+		price: '$0',
+		cadence: '/mo',
+		blurb: 'Try it on one call at a time.',
+		features: ['1 connected calendar', '5 meetings / month', 'Email summaries'],
+		cta: 'Join the waitlist',
+		highlight: false,
+	},
+	{
+		name: 'Deep Sleep',
+		price: '$29',
+		cadence: '/mo per seat',
+		blurb: 'For teams who live in meetings.',
+		features: [
+			'Unlimited meetings',
+			'Action-item extraction',
+			'Searchable archive',
+			'Slack + email delivery',
+		],
+		cta: 'Join the waitlist',
+		highlight: true,
+	},
+	{
+		name: 'REM',
+		price: 'Let\u2019s talk',
+		cadence: '',
+		blurb: 'Custom rollout for larger orgs.',
+		features: ['SSO + admin controls', 'Custom retention policy', 'Dedicated support'],
+		cta: 'Contact sales',
+		highlight: false,
+	},
+];
+---
+
+<section id="pricing">
+	<div class="container">
+		<div class="section-head">
+			<span class="mono-label">// PRICING</span>
+			<h2>Placeholder pricing, real nap time</h2>
+			<p>Numbers below are placeholders for launch — final pricing is still being confirmed.</p>
+		</div>
+
+		<div class="pricing-grid">
+			{
+				tiers.map((tier) => (
+					<div class={`pricing-card-wrap ${tier.highlight ? 'glow-pink' : ''}`}>
+						<article class={`pricing-card clipped ${tier.highlight ? 'is-highlight' : ''}`}>
+							{tier.highlight && <span class="mono-label badge">Most napped</span>}
+							<h3>{tier.name}</h3>
+							<p class="price">
+								<span class="price-amount">{tier.price}</span>
+								<span class="price-cadence">{tier.cadence}</span>
+							</p>
+							<p class="blurb">{tier.blurb}</p>
+							<ul>
+								{tier.features.map((f) => (
+									<li>{f}</li>
+								))}
+							</ul>
+							<a
+								href="#waitlist"
+								class={`btn clipped-sm ${tier.highlight ? 'btn-primary' : 'btn-secondary'}`}
+							>
+								{tier.cta}
+							</a>
+						</article>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.pricing-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 1.5rem;
+		align-items: stretch;
+	}
+
+	.pricing-card {
+		position: relative;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		background: var(--surface-1);
+		border: 1px solid var(--surface-border);
+		padding: 2rem 1.75rem;
+	}
+
+	.pricing-card.is-highlight {
+		background: linear-gradient(180deg, var(--haze-purple), var(--surface-1) 70%);
+		border-color: var(--neon-pink);
+	}
+
+	.badge {
+		position: absolute;
+		top: 1.25rem;
+		right: 1.25rem;
+		color: var(--acid-yellow);
+	}
+
+	.price {
+		display: flex;
+		align-items: baseline;
+		gap: 0.4rem;
+		margin: 0.75rem 0;
+	}
+
+	.price-amount {
+		font-family: var(--font-display);
+		font-size: 2.25rem;
+		color: var(--text-primary);
+	}
+
+	.price-cadence {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--text-secondary);
+	}
+
+	.blurb {
+		font-size: 0.9rem;
+	}
+
+	.pricing-card ul {
+		list-style: none;
+		margin: 0 0 2rem;
+		padding: 0;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		font-size: 0.9rem;
+		color: var(--text-secondary);
+	}
+
+	.pricing-card li::before {
+		content: '▸ ';
+		color: var(--electric-cyan);
+	}
+
+	.pricing-card .btn {
+		align-self: flex-start;
+	}
+</style>

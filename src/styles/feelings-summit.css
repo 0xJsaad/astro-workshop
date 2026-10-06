@@ -1,0 +1,246 @@
+/* ==========================================================================
+   Feelings.exe Summit — atomic-age poster tokens & utilities
+   Scoped stylesheet: imported only by EventLayout, does not touch the
+   existing Neural Napper global.css / dark theme.
+   ========================================================================== */
+
+:root {
+	--cream-paper: #f4e8d0;
+	--rocket-orange: #f26b3a;
+	--teal-ray: #1fa39a;
+	--deep-space: #14213d;
+	--sunshine: #f2c14e;
+
+	--font-display: 'Righteous', 'Segoe UI', sans-serif;
+	--font-body: 'DM Sans', 'Segoe UI', sans-serif;
+
+	--radius-lg: 24px;
+	--radius-md: 18px;
+	--radius-sm: 14px;
+
+	--offset-shadow: 6px 6px 0 var(--deep-space);
+	--offset-shadow-sm: 4px 4px 0 var(--deep-space);
+}
+
+.fes-root,
+.fes-root * ,
+.fes-root *::before,
+.fes-root *::after {
+	box-sizing: border-box;
+}
+
+.fes-root {
+	background: var(--cream-paper);
+	color: var(--deep-space);
+	font-family: var(--font-body);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fes-root {
+		scroll-behavior: auto;
+	}
+
+	.fes-root * {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
+}
+
+.fes-root h1,
+.fes-root h2,
+.fes-root h3 {
+	font-family: var(--font-display);
+	line-height: 1.15;
+	margin: 0 0 0.6em;
+	color: var(--deep-space);
+}
+
+.fes-root p {
+	margin: 0 0 1em;
+}
+
+.fes-root a {
+	color: var(--deep-space);
+}
+
+.fes-root img,
+.fes-root svg {
+	display: block;
+	max-width: 100%;
+}
+
+.fes-root :focus-visible {
+	outline: 3px solid var(--deep-space);
+	outline-offset: 3px;
+	box-shadow: 0 0 0 6px var(--sunshine);
+}
+
+.fes-container {
+	width: 100%;
+	max-width: 1180px;
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+}
+
+.fes-visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.fes-root section {
+	padding-block: clamp(3rem, 6vw, 6rem);
+}
+
+.fes-eyebrow {
+	font-family: var(--font-display);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 0.85rem;
+	color: var(--teal-ray);
+	display: block;
+	margin-bottom: 0.75rem;
+}
+
+/* ---------- panels & stickers ---------- */
+.panel {
+	background: #fff8ea;
+	border: 3px solid var(--deep-space);
+	border-radius: var(--radius-lg);
+}
+
+.offset-shadow {
+	box-shadow: var(--offset-shadow);
+}
+
+.offset-shadow-sm {
+	box-shadow: var(--offset-shadow-sm);
+}
+
+.sticker {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	background: var(--sunshine);
+	color: var(--deep-space);
+	border: 3px solid var(--deep-space);
+	border-radius: 999px;
+	padding: 0.5em 1.1em;
+	font-family: var(--font-display);
+	font-size: 0.85rem;
+	transform: rotate(-4deg);
+	box-shadow: var(--offset-shadow-sm);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.sticker {
+		transition: transform 160ms ease;
+	}
+
+	.sticker:hover {
+		transform: rotate(0deg) scale(1.03);
+	}
+}
+
+.starburst {
+	display: block;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
+	font-family: var(--font-display);
+	font-size: 1rem;
+	padding: 0.9em 1.8em;
+	border: 3px solid var(--deep-space);
+	border-radius: var(--radius-md);
+	cursor: pointer;
+	text-decoration: none;
+	background: var(--cream-paper);
+	color: var(--deep-space);
+	box-shadow: var(--offset-shadow);
+	transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.btn:hover {
+	transform: translate(-2px, -2px);
+	box-shadow: 8px 8px 0 var(--deep-space);
+}
+
+.btn:active {
+	transform: translate(2px, 2px);
+	box-shadow: 2px 2px 0 var(--deep-space);
+}
+
+.btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: var(--offset-shadow);
+}
+
+.btn-primary {
+	background: var(--rocket-orange);
+	color: var(--deep-space);
+}
+
+.btn-secondary {
+	background: var(--teal-ray);
+	color: var(--deep-space);
+}
+
+.btn-ghost {
+	background: var(--cream-paper);
+}
+
+/* ---------- form elements ---------- */
+.fes-root label {
+	display: block;
+	font-family: var(--font-display);
+	font-size: 0.85rem;
+	margin-bottom: 0.4em;
+}
+
+.fes-root input,
+.fes-root select {
+	width: 100%;
+	font-family: var(--font-body);
+	font-size: 1rem;
+	padding: 0.75em 1em;
+	border: 3px solid var(--deep-space);
+	border-radius: var(--radius-sm);
+	background: #fff8ea;
+	color: var(--deep-space);
+}
+
+.fes-root input:focus-visible,
+.fes-root select:focus-visible {
+	outline: 3px solid var(--deep-space);
+	outline-offset: 2px;
+	box-shadow: 0 0 0 5px var(--sunshine);
+}
+
+.fes-root .field-error {
+	color: #9c3b17;
+	font-size: 0.85rem;
+	margin-top: 0.35em;
+	min-height: 1.2em;
+}
+
+.fes-root input[aria-invalid='true'],
+.fes-root select[aria-invalid='true'] {
+	border-color: #9c3b17;
+}

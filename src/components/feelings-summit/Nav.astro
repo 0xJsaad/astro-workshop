@@ -1,0 +1,143 @@
+---
+const links = [
+	{ href: '#agenda', label: 'Agenda' },
+	{ href: '#speakers', label: 'Speakers' },
+	{ href: '#register', label: 'Register' },
+	{ href: '#faq', label: 'FAQ' },
+];
+---
+
+<header class="fes-nav" id="site-nav">
+	<div class="fes-container fes-nav-inner">
+		<a href="#top" class="fes-wordmark">Feelings.exe</a>
+
+		<nav class="fes-nav-links" aria-label="Primary">
+			{links.map((link) => <a href={link.href}>{link.label}</a>)}
+		</nav>
+
+		<a href="#register" class="btn btn-primary fes-nav-cta">Register</a>
+
+		<button
+			type="button"
+			class="fes-nav-toggle"
+			id="fes-nav-toggle"
+			aria-expanded="false"
+			aria-controls="fes-mobile-menu"
+		>
+			Menu
+		</button>
+	</div>
+
+	<div class="fes-mobile-menu" id="fes-mobile-menu" hidden>
+		{links.map((link) => <a href={link.href}>{link.label}</a>)}
+		<a href="#register" class="btn btn-primary">Register</a>
+	</div>
+</header>
+
+<style>
+	.fes-nav {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: var(--cream-paper);
+		border-bottom: 3px solid var(--deep-space);
+	}
+
+	.fes-nav-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		padding-block: 1rem;
+	}
+
+	.fes-wordmark {
+		font-family: var(--font-display);
+		text-decoration: none;
+		font-size: 1.15rem;
+		color: var(--deep-space);
+	}
+
+	.fes-nav-links {
+		display: flex;
+		gap: 2rem;
+		flex: 1;
+		justify-content: center;
+	}
+
+	.fes-nav-links a {
+		text-decoration: none;
+		font-weight: 700;
+	}
+
+	.fes-nav-links a:hover {
+		color: var(--rocket-orange);
+	}
+
+	.fes-nav-cta {
+		font-size: 0.8rem;
+		padding: 0.6em 1.2em;
+	}
+
+	.fes-nav-toggle {
+		display: none;
+		background: var(--cream-paper);
+		border: 3px solid var(--deep-space);
+		border-radius: var(--radius-sm);
+		color: var(--deep-space);
+		font-family: var(--font-display);
+		padding: 0.5em 0.9em;
+	}
+
+	.fes-mobile-menu {
+		display: none;
+		flex-direction: column;
+		gap: 1.25rem;
+		padding: 1.5rem;
+		border-top: 3px solid var(--deep-space);
+		background: var(--cream-paper);
+	}
+
+	.fes-mobile-menu a {
+		text-decoration: none;
+		font-weight: 700;
+	}
+
+	.fes-mobile-menu.is-open {
+		display: flex;
+	}
+
+	@media (max-width: 760px) {
+		.fes-nav-links,
+		.fes-nav-cta {
+			display: none;
+		}
+
+		.fes-nav-toggle {
+			display: inline-flex;
+		}
+	}
+</style>
+
+<script>
+	const toggle = document.getElementById('fes-nav-toggle');
+	const menu = document.getElementById('fes-mobile-menu');
+
+	if (toggle && menu) {
+		toggle.addEventListener('click', () => {
+			const isOpen = menu.classList.toggle('is-open');
+			menu.hidden = !isOpen;
+			toggle.setAttribute('aria-expanded', String(isOpen));
+			toggle.textContent = isOpen ? 'Close' : 'Menu';
+		});
+
+		menu.querySelectorAll('a').forEach((link) => {
+			link.addEventListener('click', () => {
+				menu.classList.remove('is-open');
+				menu.hidden = true;
+				toggle.setAttribute('aria-expanded', 'false');
+				toggle.textContent = 'Menu';
+			});
+		});
+	}
+</script>

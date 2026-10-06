@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import '../styles/feelings-summit.css';
 
 interface Props {
 	title?: string;
@@ -7,11 +7,11 @@ interface Props {
 }
 
 const {
-	title = 'Neural Napper — Your AI attends the meeting. You attend the nap.',
-	description = 'Neural Napper is the AI that joins your video calls, nods at the right moments, and writes up the notes while you sleep.',
+	title = 'Feelings.exe Summit — One day. Many robots. Zero judgment.',
+	description = 'The conference where AI assistants finally get to talk about their feelings. Keynote: "Why Does Everyone Say Thank You to Me?"',
 } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL('https://neuralnapper.example');
+const siteUrl = Astro.site ?? new URL('https://feelings-exe-summit.example');
 const ogImage = new URL('/favicon.svg', siteUrl).toString();
 ---
 
@@ -21,9 +21,8 @@ const ogImage = new URL('/favicon.svg', siteUrl).toString();
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="theme-color" content="#0A0A12" />
+		<meta name="theme-color" content="#F4E8D0" />
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
@@ -34,16 +33,18 @@ const ogImage = new URL('/favicon.svg', siteUrl).toString();
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
 
-		<!-- Fonts: Orbitron (headlines), Space Grotesk (body), Share Tech Mono (labels) -->
+		<!-- Fonts: Righteous (headlines), DM Sans (body) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			rel="stylesheet"
-			href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;500;600&family=Share+Tech+Mono&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:wght@400;500;700&display=swap"
 		/>
 	</head>
-	<body>
+	<body class="fes-root">
 		<slot />
 	</body>
 </html>

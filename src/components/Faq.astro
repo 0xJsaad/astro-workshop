@@ -1,0 +1,98 @@
+---
+const faqs = [
+	{
+		q: 'What happens to our meeting transcripts?',
+		a: 'Transcripts are encrypted in transit and at rest, retained only as long as your workspace policy allows, and never used to train external models.',
+	},
+	{
+		q: 'Will people on the call know it\u2019s an AI?',
+		a: 'Yes. Neural Napper joins with a clearly labeled name and avatar, and announces itself when it joins, every time.',
+	},
+	{
+		q: 'Which platforms are supported?',
+		a: 'Zoom, Google Meet, and Microsoft Teams are supported today, with webinar support coming during the beta.',
+	},
+	{
+		q: 'Can I review or edit the notes before they\u2019re sent?',
+		a: 'Yes — notes land in a draft state first. You can edit, approve, or hold them before they go to attendees.',
+	},
+	{
+		q: 'Does it work with recurring meetings?',
+		a: 'Yes. Connect your calendar once and Neural Napper attends every instance of a recurring meeting automatically.',
+	},
+	{
+		q: 'What if I want it to leave?',
+		a: 'Remove it from a single meeting or your whole calendar at any time from your dashboard — changes apply immediately.',
+	},
+];
+---
+
+<section id="faq">
+	<div class="container">
+		<div class="section-head">
+			<span class="mono-label">// FAQ</span>
+			<h2>Questions, answered</h2>
+		</div>
+
+		<div class="faq-list">
+			{
+				faqs.map((item) => (
+					<details class="faq-item clipped-sm">
+						<summary class="mono-label">{item.q}</summary>
+						<p>{item.a}</p>
+					</details>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+		max-width: 760px;
+	}
+
+	.faq-item {
+		background: var(--surface-1);
+		border: 1px solid var(--surface-border);
+		padding: 1.1rem 1.4rem;
+	}
+
+	.faq-item[open] {
+		border-color: var(--electric-cyan);
+	}
+
+	.faq-item summary {
+		cursor: pointer;
+		color: var(--text-primary);
+		letter-spacing: 0.04em;
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item summary::after {
+		content: '+';
+		color: var(--electric-cyan);
+		font-size: 1.1rem;
+		flex-shrink: 0;
+	}
+
+	.faq-item[open] summary::after {
+		content: '\2212';
+	}
+
+	.faq-item p {
+		margin: 0.9rem 0 0;
+		font-size: 0.95rem;
+	}
+</style>

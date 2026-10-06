@@ -1,0 +1,28 @@
+---
+interface Props {
+	color?: string;
+	size?: number;
+	rotation?: number;
+	class?: string;
+}
+
+const { color = 'var(--teal-ray)', size = 90, rotation = 0, class: className } = Astro.props;
+---
+
+<svg
+	class={className}
+	width={size}
+	height={size}
+	viewBox="0 0 100 60"
+	role="presentation"
+	aria-hidden="true"
+	style={`transform: rotate(${rotation}deg);`}
+>
+	<path
+		d="M10 50 C10 20 30 8 50 8 C40 8 32 20 32 34 C32 44 42 50 52 50 C72 50 90 36 90 14 C92 34 78 56 52 56 C28 56 10 46 10 50 Z"
+		fill={color}
+		stroke="var(--deep-space)"
+		stroke-width="2.5"
+		stroke-linejoin="round"
+	/>
+</svg>
